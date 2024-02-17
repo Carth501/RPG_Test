@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://dpqnw1jwfj5tx"]
+
+[ext_resource type="PackedScene" uid="uid://dek0k628bncgp" path="res://Scenes/terrain.tscn" id="1_crdu6"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="2_uatbw"]
+[ext_resource type="PackedScene" uid="uid://bl3wi6rp723xa" path="res://Scenes/UI/conversation.tscn" id="3_xi8mw"]
+[ext_resource type="Script" path="res://Scripts/npc.gd" id="4_w0ekf"]
+[ext_resource type="Script" path="res://Scripts/ui/conversation.gd" id="4_ypma5"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5wu5u"]
+
+[sub_resource type="Sky" id="Sky_5b73f"]
+sky_material = SubResource("ProceduralSkyMaterial_5wu5u")
+
+[sub_resource type="Environment" id="Environment_mei2g"]
+background_mode = 2
+sky = SubResource("Sky_5b73f")
+ambient_light_source = 3
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6xgux"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kveuw"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ywawo"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Terrain" parent="." instance=ExtResource("1_crdu6")]
+
+[node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("2_uatbw")
+
+[node name="CameraPivot" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+environment = SubResource("Environment_mei2g")
+fov = 95.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Player/CameraPivot/Camera3D"]
+target_position = Vector3(0, 0, -4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_6xgux")
+
+[node name="Label" type="Label" parent="Player"]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="UI" type="Control" parent="Player"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Conversation" parent="Player/UI" instance=ExtResource("3_xi8mw")]
+visible = false
+layout_mode = 0
+offset_left = 600.0
+offset_top = 280.0
+offset_right = 1368.0
+offset_bottom = 792.0
+grow_horizontal = 1
+grow_vertical = 1
+script = ExtResource("4_ypma5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.546064, -0.360144, -0.75638, 0.226796, -0.805609, 0.547319, -0.80646, -0.470415, -0.358234, 0, 7.20367, -6.48083)
+
+[node name="Test Character" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.61375, 0, -8.14407)
+script = ExtResource("4_w0ekf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Test Character"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_kveuw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Test Character"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_ywawo")

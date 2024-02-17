@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://bl3wi6rp723xa"]
+
+[node name="Conversation" type="Panel"]
+offset_left = -384.0
+offset_top = -256.0
+offset_right = 384.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(0.5, 0.5)
+
+[node name="ConversationLog" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 35.0
+offset_right = 636.0
+offset_bottom = 505.0
+
+[node name="LogBody" type="RichTextLabel" parent="ConversationLog"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+scroll_following = true
+
+[node name="Topics" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -127.0
+offset_top = 35.0
+offset_right = -7.0
+offset_bottom = -7.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="TopicList" type="RichTextLabel" parent="Topics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+scroll_following = true
+
+[node name="Label" type="Label" parent="Topics"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 23.0
+text = "Topics"
+horizontal_alignment = 1
+
+[node name="Names" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -369.0
+offset_top = 6.0
+offset_right = 368.0
+offset_bottom = 23.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "TEST"
+fit_content = true
