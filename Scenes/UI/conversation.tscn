@@ -1,6 +1,8 @@
-[gd_scene format=3 uid="uid://bl3wi6rp723xa"]
+[gd_scene load_steps=2 format=3 uid="uid://bl3wi6rp723xa"]
 
-[node name="Conversation" type="Panel"]
+[ext_resource type="Script" path="res://Scripts/ui/conversation.gd" id="1_6nj0m"]
+
+[node name="Conversation" type="Panel" node_paths=PackedStringArray("conversation_log", "topic_list", "names")]
 offset_left = -384.0
 offset_top = -256.0
 offset_right = 384.0
@@ -8,6 +10,10 @@ offset_bottom = 256.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(0.5, 0.5)
+script = ExtResource("1_6nj0m")
+conversation_log = NodePath("ConversationLog/LogBody")
+topic_list = NodePath("Topics/TopicList")
+names = NodePath("Names")
 
 [node name="ConversationLog" type="Panel" parent="."]
 layout_mode = 0
@@ -64,9 +70,21 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -369.0
 offset_top = 6.0
-offset_right = 368.0
-offset_bottom = 23.0
+offset_right = 329.0
+offset_bottom = 29.0
 grow_horizontal = 2
 bbcode_enabled = true
 text = "TEST"
 fit_content = true
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 737.0
+offset_top = 5.0
+offset_right = 761.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 12
+text = "X"
+
+[connection signal="meta_clicked" from="ConversationLog/LogBody" to="." method="_on_link_clicked"]
+[connection signal="pressed" from="CloseButton" to="." method="close"]

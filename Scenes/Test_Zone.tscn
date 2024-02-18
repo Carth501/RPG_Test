@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dpqnw1jwfj5tx"]
+[gd_scene load_steps=11 format=3 uid="uid://dpqnw1jwfj5tx"]
 
 [ext_resource type="PackedScene" uid="uid://dek0k628bncgp" path="res://Scenes/terrain.tscn" id="1_crdu6"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="2_uatbw"]
 [ext_resource type="PackedScene" uid="uid://bl3wi6rp723xa" path="res://Scenes/UI/conversation.tscn" id="3_xi8mw"]
 [ext_resource type="Script" path="res://Scripts/npc.gd" id="4_w0ekf"]
-[ext_resource type="Script" path="res://Scripts/ui/conversation.gd" id="4_ypma5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5wu5u"]
 
@@ -63,7 +62,6 @@ offset_right = 1368.0
 offset_bottom = 792.0
 grow_horizontal = 1
 grow_vertical = 1
-script = ExtResource("4_ypma5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.546064, -0.360144, -0.75638, 0.226796, -0.805609, 0.547319, -0.80646, -0.470415, -0.358234, 0, 7.20367, -6.48083)
@@ -79,3 +77,5 @@ shape = SubResource("CapsuleShape3D_kveuw")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Test Character"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_ywawo")
+
+[connection signal="end_conversation" from="Player/UI/Conversation" to="Player" method="conversation_close"]
