@@ -9,9 +9,11 @@ class_name player extends character_sheet
 @onready var label := $"Label"
 var target : npc
 var mouse_sensitivity := 0.002
+var topics_seen : Array[String]
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	conversation_panel.topic_brought_up.connect(add_topic)
 
 func _physics_process(_delta):
 	if(!global_clock_single.paused):
@@ -29,6 +31,8 @@ func _input(event):
 		camera.rotate_x(-event.relative.y * mouse_sensitivity)
 		camera.rotation.x = clampf(camera.rotation.x, -deg_to_rad(85), deg_to_rad(80))
 	if event.is_action_pressed("interact") && target != null:
+		if conversation_panel.visible:
+			return
 		var participants : Array[npc] = [target]
 		conversation_panel.visible = true
 		conversation_panel.set_participants(participants)
@@ -64,3 +68,9 @@ func conversation_close():
 	conversation_panel.visible = false
 	global_clock_single.set_pause(false)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func add_topic(topic_id : String):
+	print(str("new topic: ", topic_id))
+	if(!topics_seen.has(topic_id)):
+		topics_seen.append(topic_id)
+		conversation_panel.set_topic_list(topics_seen)
